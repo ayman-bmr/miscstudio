@@ -1,7 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-// import { PrismaClient } from "@prisma/client";
-import { PrismaClient,Translation } from "@/generated/prisma";
-// import { Translation } from "@/generated/prisma";
+import { PrismaClient } from "@/generated/prisma";
+//  import { PrismaClient } from "@prisma/client";
+// import { PrismaClient } from "@/generated/prisma";
+import { Translation } from "@/generated/prisma";
 
 
 const prisma = new PrismaClient();
