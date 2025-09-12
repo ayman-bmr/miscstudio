@@ -179,7 +179,7 @@ const MiscStudioHero = () => {
                 />
                 <StoreButton
                   href="https://apps.apple.com/developer/..."
-                  iconSrc="/apple_logo_black.svg"
+                  iconSrc="/Apple_logo_black.svg"
                   iconAlt={t("app_store_name")}
                   iconWidth={24}
                   iconHeight={28}
