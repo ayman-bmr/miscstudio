@@ -1,0 +1,43 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+model Translation {
+  id       Int     @id @default(autoincrement())
+  key      String
+  language String
+  value    String
+
+  @@unique([key, language])
+}
+model HeroContent {
+  id       Int    @id @default(autoincrement())
+  key      String
+  language String
+  type     String  // "text" or "image"
+  value    String? // text value
+  url      String? // image URL
+  @@unique([key, language])
+}
+
+model Game {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  image       String
+  link        String?
+  language    String   // for multi-language support (optional)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+  
