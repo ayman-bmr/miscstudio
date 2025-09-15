@@ -1,5 +1,6 @@
 "use client";
 
+import React, { useState, useRef, useEffect } from "react";
 import TranslateIcon from "@mui/icons-material/Translate";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
@@ -27,15 +28,18 @@ import { useThemeContext } from "../../../packages/providers/mui/ThemeContext";
 import logoMiscForDark from "../../../public/logo-for-dark.webp";
 import logoMiscForLight from "../../../public/logo-for-light.webp";
 import Image from "next/image";
-import { useState, useRef } from "react";
 import { usePathname, useRouter } from "next/navigation";
-//import { useDbTranslation } from "../../../hooks/useDbTranslation";
 import { useTranslation } from "react-i18next";
 
-const Header = () => {
+interface AppItem {
+  titleKey: string;
+  link?: string | null;
+}
+
+const Header: React.FC = () => {
   const { language, handleLanguageChange } = useLanguage();
   const { effectiveMode, setMode } = useThemeContext();
-  const { t } = useTranslation(); // ✅ use hook here
+  const { t } = useTranslation();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const pathname = usePathname();
@@ -43,6 +47,7 @@ const Header = () => {
 
   const [appsOpen, setAppsOpen] = useState(false);
   const appsButtonRef = useRef<HTMLButtonElement | null>(null);
+  const [appsData, setAppsData] = useState<AppItem[]>([]);
 
   const handleThemeToggle = () =>
     setMode(effectiveMode === "light" ? "dark" : "light");
@@ -52,6 +57,28 @@ const Header = () => {
   const handleAppsToggle = () => setAppsOpen((prev) => !prev);
 
   const logoMisc = effectiveMode === "light" ? logoMiscForLight : logoMiscForDark;
+
+  // Fetch games data for Popper menu
+  useEffect(() => {
+    const fetchGamesData = async () => {
+      try {
+        const res = await fetch(`/api/games/${language}`);
+        if (!res.ok) throw new Error("Failed to fetch games");
+        const data = await res.json();
+
+        const mapped: AppItem[] = data.map((game: any) => ({
+          titleKey: game.titleKey || game.title,
+          link: game.link || null,
+        }));
+
+        setAppsData(mapped);
+      } catch (err) {
+        console.error("Error fetching games data:", err);
+      }
+    };
+
+    fetchGamesData();
+  }, [language]);
 
   const scrollOrNavigate = (id: string) => {
     if (pathname === "/") {
@@ -133,30 +160,21 @@ const Header = () => {
                           onMouseEnter={!isMobile ? handleAppsOpen : undefined}
                           onMouseLeave={!isMobile ? handleAppsClose : undefined}
                         >
-                          <MenuItem
-                            onClick={() => {
-                              scrollOrNavigate("applications_section");
-                              handleAppsClose();
-                            }}
-                          >
-                            {t("hikaya_title")}
-                          </MenuItem>
-                          <MenuItem
-                            onClick={() => {
-                              scrollOrNavigate("applications_section");
-                              handleAppsClose();
-                            }}
-                          >
-                            {t("Coup_board_game_title")}
-                          </MenuItem>
-                          <MenuItem
-                            onClick={() => {
-                              scrollOrNavigate("applications_section");
-                              handleAppsClose();
-                            }}
-                          >
-                            {t("sketchIt_title")}
-                          </MenuItem>
+                          {appsData.map((app) => (
+                            <MenuItem
+                              key={app.titleKey}
+                              onClick={() => {
+                                handleAppsClose();
+                                if (app.link) {
+                                  router.push(app.link);
+                                } else {
+                                  scrollOrNavigate("applications_section");
+                                }
+                              }}
+                            >
+                              {t(app.titleKey)}
+                            </MenuItem>
+                          ))}
                         </MenuList>
                       </ClickAwayListener>
                     </Paper>
