@@ -17,12 +17,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       res.status(500).json({ error: "Failed to fetch games" });
     }
   } else if (req.method === "POST") {
-    const { title, description, image, language } = req.body;
+    const { title, description, image,link, language } = req.body;
     if (!title || !description || !image) return res.status(400).json({ error: "Missing fields" });
 
     try {
       const game = await prisma.game.create({
-        data: { title, description, image, language: language || "en" },
+        data: { title, description, image,link, language: language || "en" },
       });
       res.status(201).json(game);
     } catch (err) {

@@ -50,7 +50,7 @@ export default function AdminDashboard() {
       const res = await fetch("/api/admin/games", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ title, description, image, language }),
+        body: JSON.stringify({ title, description, image,link, language }),
       });
       if (!res.ok) throw new Error("Failed to add game");
       setTitle(""); setDescription(""); setImage("");setLink("");;
@@ -93,6 +93,7 @@ export default function AdminDashboard() {
           title: editTitle,
           description: editDescription,
           image: editImage,
+          link: editLink,
           language: editLanguage,
         }),
       });
