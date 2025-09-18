@@ -28,7 +28,7 @@ const OurGamesSection: React.FC = () => {
       try {
         setLoading(true);
 
-        // ✅ Dynamic route fetch
+        
         const res = await fetch(`/api/games/${i18n.language}`);
         if (!res.ok) throw new Error("Failed to fetch games");
 

@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import { hash } from "bcryptjs";
 
 const prisma = new PrismaClient();
 
@@ -118,7 +119,17 @@ async function main() {
 
   console.log("✅ Database has been seeded with games!");
 }
+ const password = await hash("admin123", 10);
 
+  await prisma.admin.create({
+    data: {
+      email: "admin@example.com",
+      password,
+      name: "Admin",
+    },
+  });
+
+  console.log("Admin created!");
 
 
 main()
