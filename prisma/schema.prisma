@@ -28,14 +28,15 @@ model HeroContent {
 }
 
 model Game {
-  id          Int      @id @default(autoincrement())
-  title       String
-  description String
-  image       String
-  link        String?
-  language    String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id             Int      @id @default(autoincrement())
+  title_en       String
+  description_en String
+  title_ar       String
+  description_ar String
+  image          String
+  link           String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 }
 
 model Admin {

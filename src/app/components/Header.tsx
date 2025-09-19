@@ -32,7 +32,9 @@ import { usePathname, useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
 
 interface AppItem {
-  titleKey: string;
+  id: number;
+  title_en: string;
+  title_ar: string;
   link?: string | null;
 }
 
@@ -64,14 +66,8 @@ const Header: React.FC = () => {
       try {
         const res = await fetch(`/api/games/${language}`);
         if (!res.ok) throw new Error("Failed to fetch games");
-        const data = await res.json();
-
-        const mapped: AppItem[] = data.map((game: any) => ({
-          titleKey: game.titleKey || game.title,
-          link: game.link || null,
-        }));
-
-        setAppsData(mapped);
+        const data: AppItem[] = await res.json();
+        setAppsData(data);
       } catch (err) {
         console.error("Error fetching games data:", err);
       }
@@ -98,9 +94,7 @@ const Header: React.FC = () => {
         backdropFilter: "blur(10px)",
         backgroundColor:
           theme.palette.glassyHeader?.background ?? "rgba(255,255,255,0.8)",
-        borderBottom: `1px solid ${
-          theme.palette.glassyHeader?.border ?? "rgba(0,0,0,0.05)"
-        }`,
+        borderBottom: `1px solid ${theme.palette.glassyHeader?.border ?? "rgba(0,0,0,0.05)"}`,
         "&::before": {
           content: '""',
           position: "absolute",
@@ -162,17 +156,19 @@ const Header: React.FC = () => {
                         >
                           {appsData.map((app) => (
                             <MenuItem
-                              key={app.titleKey}
+                              key={app.id}
                               onClick={() => {
                                 handleAppsClose();
-                                if (app.link) {
-                                  router.push(app.link);
-                                } else {
+                                if (!app.link) {
                                   scrollOrNavigate("applications_section");
+                                } else if (app.link.startsWith("http")) {
+                                  window.open(app.link, "_blank");
+                                } else {
+                                  router.push(app.link);
                                 }
                               }}
                             >
-                              {t(app.titleKey)}
+                              {language === "ar" ? app.title_ar : app.title_en}
                             </MenuItem>
                           ))}
                         </MenuList>
@@ -190,9 +186,7 @@ const Header: React.FC = () => {
 
           {/* Language & Theme */}
           <Stack direction="row" spacing={2} alignItems="center">
-            <Tooltip
-              title={effectiveMode === "light" ? t("dark_mode") : t("light_mode")}
-            >
+            <Tooltip title={effectiveMode === "light" ? t("dark_mode") : t("light_mode")}>
               <IconButton
                 onClick={handleThemeToggle}
                 sx={{

@@ -70,54 +70,42 @@ async function main() {
     });
   }
   await prisma.game.createMany({
-    data: [
-      {
-        title: "Hikaya: Kid's Storytelling",
-        description: "Storytelling is a fun, engaging, and safe app designed to spark children's imagination through beautifully narrated and illustrated stories. With a simple and user-friendly interface, children can read, listen, and track their progress, while parents ensure a safe, ad-free experience.",
-        image: "/hero-illustration.png",
-        link: "/hikaya", // internal route
-        language: "en",
-      },
-      {
-        title: "Coup board game",
-        description: "Step into a world of cunning and deception with Coup Online! Deploy your strategic skills as you navigate a landscape of perilous political intrigues. Play with friends or challenge players from around the world in this thrilling deduction game.",
-        image: "/coup_pic.webp",
-        link: "https://play.google.com/store/apps/details?id=com.aikkene.coup",
-        language: "en",
-      },
-      {
-        title: "SketchIt",
-        description: "Do you have the patience to draw but don’t know where to start? This is the place for you! This app works like tracing paper, helping you sketch everything easily and quickly. You can use it for educational purposes or just for fun.",
-        image: "/sketchitImage.jpg",
-        link: "https://play.google.com/store/apps/details?id=com.aikkene.sketchit",
-        language: "en",
-      },
-      // Arabic versions (optional)
-      {
-        title: "حكاية: سرد القصص للأطفال",
-        description: " حكاية هي تطبيق ممتع وجذاب وآمن مصمم لتحفيز خيال الأطفال من خلال قصص مُروية ومرسومة بشكل جميل. من خلال واجهة بسيطة وسهلة الاستخدام، يمكن للأطفال القراءة والاستماع ومتابعة تقدمهم، بينما يضمن الآباء تجربة آمنة وخالية من الإعلانات .",
-        image: "/hero-illustration.png",
-        link: "/hikaya",
-        language: "ar",
-      },
-      {
-        title: "لعبة كوبا",
-        description: "ادخل عالم المكر والخداع مع Coup Online! استخدم مهاراتك الاستراتيجية أثناء استكشافك لعالم مليء بالمكائد السياسية الخطرة. العب مع أصدقائك أو تحدى لاعبين من جميع أنحاء العالم في هذه اللعبة المثيرة للاستخلاص. خدع، دسائس، وتلاعب لتحقيق النصر—ولكن احذر: الحقيقة سلعة ثمينة والثقة عملة هشة. هل ستصل إلى السلطة أم سيتم تدميرك بشبكة أكاذيبك الخاصة؟ حمل Coup Online الآن واختبر اللعبة القصوى للاستخلاص والخداع!",
-        image: "/coup_pic.webp",
-        link: "https://play.google.com/store/apps/details?id=com.aikkene.coup",
-        language: "ar",
-      },
-      {
-        title: "سكيتش إت",
-        description: "هل لديك الصبر للرسم ولكن لا تعرف من أين تبدأ؟ هذا هو المكان المناسب لك! يعمل هذا التطبيق مثل ورق التتبع، حيث سيساعدك على رسم كل شيء بسهولة وسرعة. يمكنك استخدامه لأغراض تعليمية أو للمتعة فقط.",
-        image: "/sketchitImage.jpg",
-        link: "https://play.google.com/store/apps/details?id=com.aikkene.sketchit",
-        language: "ar",
-      },
-    ],
-  });
+  data: [
+    {
+      title_en: "Hikaya: Kid's Storytelling",
+      description_en:
+        "Storytelling is a fun, engaging, and safe app designed to spark children's imagination through beautifully narrated and illustrated stories. With a simple and user-friendly interface, children can read, listen, and track their progress, while parents ensure a safe, ad-free experience.",
+      title_ar: "حكاية: سرد القصص للأطفال",
+      description_ar:
+        "حكاية هي تطبيق ممتع وجذاب وآمن مصمم لتحفيز خيال الأطفال من خلال قصص مُروية ومرسومة بشكل جميل. من خلال واجهة بسيطة وسهلة الاستخدام، يمكن للأطفال القراءة والاستماع ومتابعة تقدمهم، بينما يضمن الآباء تجربة آمنة وخالية من الإعلانات.",
+      image: "/hero-illustration.png",
+      link: "/hikaya", // internal route
+    },
+    {
+      title_en: "Coup board game",
+      description_en:
+        "Step into a world of cunning and deception with Coup Online! Deploy your strategic skills as you navigate a landscape of perilous political intrigues. Play with friends or challenge players from around the world in this thrilling deduction game.",
+      title_ar: "لعبة كوبا",
+      description_ar:
+        "ادخل عالم المكر والخداع مع Coup Online! استخدم مهاراتك الاستراتيجية أثناء استكشافك لعالم مليء بالمكائد السياسية الخطرة. العب مع أصدقائك أو تحدى لاعبين من جميع أنحاء العالم في هذه اللعبة المثيرة للاستخلاص. خدع، دسائس، وتلاعب لتحقيق النصر—ولكن احذر: الحقيقة سلعة ثمينة والثقة عملة هشة.",
+      image: "/coup_pic.webp",
+      link: "https://play.google.com/store/apps/details?id=com.aikkene.coup",
+    },
+    {
+      title_en: "SketchIt",
+      description_en:
+        "Do you have the patience to draw but don’t know where to start? This is the place for you! This app works like tracing paper, helping you sketch everything easily and quickly. You can use it for educational purposes or just for fun.",
+      title_ar: "سكيتش إت",
+      description_ar:
+        "هل لديك الصبر للرسم ولكن لا تعرف من أين تبدأ؟ هذا هو المكان المناسب لك! يعمل هذا التطبيق مثل ورق التتبع، حيث سيساعدك على رسم كل شيء بسهولة وسرعة. يمكنك استخدامه لأغراض تعليمية أو للمتعة فقط.",
+      image: "/sketchitImage.jpg",
+      link: "https://play.google.com/store/apps/details?id=com.aikkene.sketchit",
+    },
+  ],
+});
 
-  console.log("✅ Database has been seeded with games!");
+console.log("✅ Database has been seeded with games!");
+
 }
  const password = await hash("admin123", 10);
 

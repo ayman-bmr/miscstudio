@@ -11,20 +11,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
-    let games = await prisma.game.findMany({
-      where: { language: lang },
+    const games = await prisma.game.findMany({
       orderBy: { createdAt: "desc" },
     });
 
-    // fallback to English if no games in requested language
-    if (games.length === 0 && lang !== "en") {
-      games = await prisma.game.findMany({
-        where: { language: "en" },
-        orderBy: { createdAt: "desc" },
-      });
-    }
+    // Send both language fields
+    const mappedGames = games.map((game) => ({
+      id: game.id,
+      title_en: game.title_en,
+      title_ar: game.title_ar,
+      description_en: game.description_en,
+      description_ar: game.description_ar,
+      image: game.image,
+      link: game.link,
+    }));
 
-    res.status(200).json(games);
+    res.status(200).json(mappedGames);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Failed to fetch games" });

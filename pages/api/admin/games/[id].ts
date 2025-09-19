@@ -10,13 +10,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (isNaN(gameId)) return res.status(400).json({ error: "Invalid ID" });
 
   if (req.method === "PUT") {
-    const { title, description, image, language } = req.body;
-    if (!title || !description || !image) return res.status(400).json({ error: "Missing fields" });
+    const { title_en, description_en, title_ar, description_ar, image, link } = req.body;
+    if (!title_en || !description_en || !title_ar || !description_ar || !image) 
+      return res.status(400).json({ error: "Missing fields" });
 
     try {
       const updatedGame = await prisma.game.update({
         where: { id: gameId },
-        data: { title, description, image, language: language || "en" },
+        data: { title_en, description_en, title_ar, description_ar, image, link },
       });
       return res.status(200).json(updatedGame);
     } catch (err) {

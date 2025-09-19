@@ -6,7 +6,7 @@ import FeaturesSection from "./features";
 import TestimonialsSection from "./testimonialsection";
 import HowItWorksSection from "./howItworksSection";
 import CtaSection from "./CtaSection";
-import Footer from "./footer";
+import FooterHikaya from "./footerHikaya";
 
 export default function Hikayapage(){
     return(
@@ -19,7 +19,7 @@ export default function Hikayapage(){
       <HowItWorksSection/>  
       <CtaSection/>
       </Box>
-    <Footer/>
+    <FooterHikaya/>
     </Box>
     )
 }

@@ -1,8 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-// import { prisma } from "@/lib/prisma";
 import { prisma } from "../../lib/prisma"
 import { compare } from "bcryptjs";
-// import { signJwt } from "@/lib/jwt";
 import { signJwt } from "../../lib/jwt";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
