@@ -33,6 +33,12 @@ export default function AdminDashboard() {
   const [editImage, setEditImage] = useState("");
   const [editLink, setEditLink] = useState("");
 
+  // Admin states
+  const [admins, setAdmins] = useState<any[]>([]);
+  const [newAdminEmail, setNewAdminEmail] = useState("");
+  const [newAdminPassword, setNewAdminPassword] = useState("");
+  const [loadingAdmin, setLoadingAdmin] = useState(false);
+
   // Fetch games
   async function fetchGames() {
     try {
@@ -110,6 +116,51 @@ export default function AdminDashboard() {
     } catch (err) { console.error(err); }
   }
 
+  // Fetch admins
+  async function fetchAdmins() {
+    try {
+      const res = await fetch("/api/admin/admins");
+      const data = await res.json();
+      setAdmins(Array.isArray(data) ? data : []);
+    } catch (err) {
+      console.error("Error fetching admins:", err);
+      setAdmins([]);
+    }
+  }
+
+  // Add admin
+  async function addAdmin() {
+    if (!newAdminEmail || !newAdminPassword) return;
+    setLoadingAdmin(true);
+    try {
+      const res = await fetch("/api/admin/admins", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: newAdminEmail, password: newAdminPassword }),
+      });
+      if (!res.ok) throw new Error("Failed to add admin");
+      setNewAdminEmail(""); setNewAdminPassword("");
+      fetchAdmins();
+    } catch (err) {
+      console.error(err);
+    }
+    setLoadingAdmin(false);
+  }
+
+  // Delete admin
+  async function deleteAdmin(id: string) {
+    if (!confirm("Are you sure you want to delete this admin?")) return;
+    try {
+      const res = await fetch(`/api/admin/admins/${id}`, { method: "DELETE" });
+      if (!res.ok) throw new Error("Failed to delete admin");
+      fetchAdmins();
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  useEffect(() => { fetchAdmins(); }, []);
+
   // Logout
   async function handleLogout() {
     try {
@@ -131,7 +182,7 @@ export default function AdminDashboard() {
           <MenuItem value="ar">Arabic</MenuItem>
         </Select>
       </Box>
-
+    
       {/* Add game */}
       <Paper sx={{ p: 3, mb: 4 }}>
         <Typography variant="h6" sx={{ mb: 2 }}>Add New Application</Typography>
@@ -145,6 +196,59 @@ export default function AdminDashboard() {
           <Button variant="contained" color="primary" onClick={addGame} disabled={loading}>
             {loading ? "Adding..." : "Add Game"}
           </Button>
+        </Box>
+      </Paper>
+
+      {/* Manage Admins */}
+      <Paper sx={{ p: 3, mb: 4 }}>
+        <Typography variant="h6" sx={{ mb: 2 }}>Manage Admins</Typography>
+        {/* Add admin form */}
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+          <TextField
+            label="Admin Email"
+            value={newAdminEmail}
+            onChange={(e) => setNewAdminEmail(e.target.value)}
+            fullWidth
+          />
+          <TextField
+            label="Password"
+            type="password"
+            value={newAdminPassword}
+            onChange={(e) => setNewAdminPassword(e.target.value)}
+            fullWidth
+          />
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={addAdmin}
+            disabled={loadingAdmin}
+          >
+            {loadingAdmin ? "Adding..." : "Add Admin"}
+          </Button>
+        </Box>
+
+        {/* Admins list */}
+        <Box sx={{ mt: 3 }}>
+          <Typography variant="subtitle1">Existing Admins:</Typography>
+          {admins.map((admin) => (
+            <Box
+              key={admin.id}
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                mt: 1,
+                p: 1,
+                border: "1px solid #ddd",
+                borderRadius: 1,
+              }}
+            >
+              <Typography>{admin.email} {admin.name && `(${admin.name})`}</Typography>
+              <IconButton color="error" onClick={() => deleteAdmin(admin.id)}>
+                <DeleteIcon />
+              </IconButton>
+            </Box>
+          ))}
         </Box>
       </Paper>
 
