@@ -174,14 +174,7 @@ export default function AdminDashboard() {
       <Typography variant="h4" sx={{ mb: 3 }}>Misc Studio Admin Dashboard</Typography>
       <Button variant="outlined" color="secondary" sx={{ position: "absolute", top: 16, right: 16 }} onClick={handleLogout}>Logout</Button>
 
-      {/* Language filter */}
-      <Box sx={{ mb: 3 }}>
-        <Typography>View Applications By Language:</Typography>
-        <Select value={viewLanguage} onChange={(e) => setViewLanguage(e.target.value)} sx={{ ml: 2 }}>
-          <MenuItem value="en">English</MenuItem>
-          <MenuItem value="ar">Arabic</MenuItem>
-        </Select>
-      </Box>
+     
     
       {/* Add game */}
       <Paper sx={{ p: 3, mb: 4 }}>
@@ -251,6 +244,14 @@ export default function AdminDashboard() {
           ))}
         </Box>
       </Paper>
+       {/* Language filter */}
+      <Box sx={{ mb: 3 }}>
+        <Typography>View Applications By Language:</Typography>
+        <Select value={viewLanguage} onChange={(e) => setViewLanguage(e.target.value)} sx={{ ml: 2 }}>
+          <MenuItem value="en">English</MenuItem>
+          <MenuItem value="ar">Arabic</MenuItem>
+        </Select>
+      </Box>
 
       {/* Games list */}
       <Grid container spacing={3}>
