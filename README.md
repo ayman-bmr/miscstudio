@@ -9,7 +9,7 @@ It uses **Next.js**, **Prisma**, **Supabase**, and **PostgreSQL** for a modern f
 - 🚀 Full-stack web app built with **Next.js**
 - 🗄️ **Prisma ORM** for database access
 - 🐘 **PostgreSQL** hosted on **Supabase**
-- 🎨 Manage apps and games
+- 🎨 Manage applications and games
 - 🔐 Secure authentication with Supabase
 
 ---
@@ -21,30 +21,6 @@ It uses **Next.js**, **Prisma**, **Supabase**, and **PostgreSQL** for a modern f
 - **Authentication:** Supabase
 
 ---
-## 🛠️ Database Schema
-
-```mermaid
-erDiagram
-    Game {
-      int id PK
-      string title_en
-      string description_en
-      string title_ar
-      string description_ar
-      string image
-      string link
-      datetime createdAt
-      datetime updatedAt
-    }
-
-    Admin {
-      string id PK
-      string email UNIQUE
-      string password
-      string name
-      datetime createdAt
-    }
-
 
 ## ⚙️ Installation & Setup
 
