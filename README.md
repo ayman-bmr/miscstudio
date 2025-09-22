@@ -20,7 +20,7 @@ Built with **Next.js**, **Prisma**, **PostgreSQL**, and deployed on **Supabase**
 
 ## 🛠️ Tech Stack
 
-*   **Frontend:** Next.js 14, React 18, TypeScript, Tailwind CSS
+*   **Frontend:** Next.js 14, React 18, TypeScript, Material UI
 *   **Backend:** Next.js API Routes
 *   **ORM:** Prisma
 *   **Database:** PostgreSQL (hosted on Supabase)
