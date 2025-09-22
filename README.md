@@ -1,12 +1,12 @@
 # Misc Studio - Official Website
 
-![Misc Studio Logo](https://via.placeholder.com/150x50?text=Misc+Studio) <!-- Replace with your actual logo path -->
+
 
 A modern, multi-language website for **Misc Studio**, a creative studio specializing in developing innovative applications and games. This platform showcases our portfolio with full English and Arabic support.
 
 Built with **Next.js**, **Prisma**, **PostgreSQL**, and deployed on **Supabase**.
 
-**Live Demo:** [https://misc-studio.vercel.app](https://misc-studio.vercel.app) <!-- Replace with your actual live URL -->
+**Live Demo:** [https://miscstudio.vercel.app](https://miscstudio.vercel.app) <!-- Replace with your actual live URL -->
 
 ## 🌟 Features
 
@@ -80,10 +80,6 @@ NEXTAUTH_URL="http://localhost:3000"
 # Supabase
 NEXT_PUBLIC_SUPABASE_URL="https://your-project-ref.supabase.co"
 NEXT_PUBLIC_SUPABASE_ANON_KEY="your-supabase-anon-key"
-
-# Optional: For advanced Supabase features
-SUPABASE_SERVICE_ROLE_KEY="your-service-role-key"
-```
 
 ### 4. Database Setup
 
@@ -247,12 +243,7 @@ We welcome contributions to improve Misc Studio's website:
 
 This project is the official website of Misc Studio. All rights reserved.
 
-## 📞 Contact
 
-**Misc Studio**
-- Website: [https://misc-studio.vercel.app](https://misc-studio.vercel.app)
-- Email: contact@miscstudio.com
-- LinkedIn: [Misc Studio](https://linkedin.com/company/misc-studio)
 
 ---
 
