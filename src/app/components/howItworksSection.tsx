@@ -61,7 +61,7 @@ const HowItWorksSection = () => {
             component="h2"
             align="center"
             gutterBottom
-            sx={{ mb: 6 }}
+            sx={{ mb: 6 ,color:(theme) => theme.palette.mode === "dark" ? "#fff" : theme.palette.text.primary }}
           >
             {t("how_it_works")}
           </Typography>

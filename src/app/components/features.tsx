@@ -49,7 +49,7 @@ const FeaturesSection = () => {
           component="h2"
           align="center"
           gutterBottom
-          sx={{ mb: 6 }}
+          sx={{ mb: 6,color: (theme) => theme.palette.mode === "dark" ? "#fff" : theme.palette.text.primary }}
         >
           {t("why_kids_love")}
         </Typography>
