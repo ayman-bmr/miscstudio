@@ -46,7 +46,7 @@ const OurGamesSection: React.FC = () => {
   return (
     <Box id="applications_section" component="section" sx={{ py: 12, backgroundColor: "background.default" }}>
       <Container dir={i18n.language === "ar" ? "rtl" : "ltr"}>
-        <Typography variant="h2" align="center" sx={{ mb: 10, fontWeight: "bold", fontSize: { xs: "2rem", md: "3rem" } }}>
+        <Typography variant="h2" align="center" sx={{ mb: 10, fontWeight: "bold", fontSize: { xs: "2rem", md: "3rem" }, color: (theme) => theme.palette.mode === "dark" ? "#fff" : theme.palette.text.primary }}>
           Our Applications
         </Typography>
 
